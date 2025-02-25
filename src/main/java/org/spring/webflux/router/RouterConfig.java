@@ -16,6 +16,10 @@ import org.springframework.web.reactive.function.server.ServerResponse;
  * - Uses Netty event-loop model, which allows handling thousands of concurrent 
  * requests efficiently.
 */
+/*
+ * Uses functional routing (RouterFunctions), not annotations.
+ * More functional programming style, which can be useful for advanced WebFlux use cases.
+*/
 @Configuration
 public class RouterConfig {
 	

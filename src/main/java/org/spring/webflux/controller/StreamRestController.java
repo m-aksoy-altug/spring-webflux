@@ -22,6 +22,10 @@ import reactor.core.publisher.Mono;
 import org.spring.webflux.dto.DummyDTO;
 import org.spring.webflux.service.StreamRestService;
 
+/*
+ * Uses annotation-based routing ( EX: @GetMapping).
+ * Easier to implement, especially for CRUD operations.
+*/
 @RestController
 @RequestMapping("/stream/rest")
 public class StreamRestController {
