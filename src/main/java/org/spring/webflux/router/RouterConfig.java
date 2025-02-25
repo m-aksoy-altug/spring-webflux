@@ -1,6 +1,7 @@
-package org.spring.webflux.config;
+package org.spring.webflux.router;
 
-import org.spring.webflux.service.RequestHandlerAsService;
+
+import org.spring.webflux.handler.RequestHandlerAsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +9,13 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
+/*Non-Blocking (Asynchronous): The request does not wait for the response. 
+ * Instead, it is reactively processed when data is available, 
+ * allowing the thread to handle other tasks in the meantime.
+ * - Requests are handled asynchronously, without blocking the worker thread.
+ * - Uses Netty event-loop model, which allows handling thousands of concurrent 
+ * requests efficiently.
+*/
 @Configuration
 public class RouterConfig {
 	

@@ -1,4 +1,4 @@
-package org.spring.webflux.service;
+package org.spring.webflux.handler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +26,9 @@ public class RequestHandlerAsService {
 		long start= System.currentTimeMillis();
 		Flux<DummyEntity>  dummyfluxAll= dummyRepository.fecthAll();
 		Flux<DummyDTO> dataTransferObject = dummyfluxAll.map(x ->
-											DummyDTO.entityToDto(x));
+											DummyDTO.entityToDto(x));		
+//		dataTransferObject.filter(x-> !x.getName().startsWith("A")).log();
+		dataTransferObject.map(x-> x.getName().toUpperCase()).log();
 		log.info("fecthAll total execution time:"+ (System.currentTimeMillis()-start));
 		return ServerResponse.ok().contentType(MediaType.TEXT_EVENT_STREAM)
 				.body(dataTransferObject,DummyDTO.class);
@@ -42,5 +44,6 @@ public class RequestHandlerAsService {
 		return ServerResponse.ok()
 				.body(dataTransferObject,DummyDTO.class);
 	}
+	
 	
 }
