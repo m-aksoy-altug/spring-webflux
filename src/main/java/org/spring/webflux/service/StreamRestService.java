@@ -1,5 +1,6 @@
 package org.spring.webflux.service;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -7,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spring.webflux.dto.DummyDTO;
 import org.spring.webflux.entity.DummyEntity;
+import org.spring.webflux.entity.DummyMongo;
+import org.spring.webflux.repo.DummyMongoRepo;
 import org.spring.webflux.repo.DummyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -24,6 +27,28 @@ public class StreamRestService {
 	
 	@Autowired
 	DummyRepository dummyRepository;
+	
+	@Autowired
+	DummyMongoRepo dummyMongoRepo;
+	
+	
+	public Flux<DummyDTO> fetchAllFromMongo(){
+		long start= System.currentTimeMillis();
+		Flux<DummyMongo>  dummyfluxAll= dummyMongoRepo.findAll()
+								.delayElements(Duration.ofSeconds(1));
+		Flux<DummyDTO> dataTransferObject = dummyfluxAll.map(x ->
+											DummyDTO.mongoEntityToDto(x));		
+		log.info("Stream Rest fetchAllFromMongo total execution time:"+ (System.currentTimeMillis()-start));
+		return dataTransferObject;
+	}
+	
+	public Mono<DummyMongo> addToMongo(DummyDTO dummyDTO){
+		long start= System.currentTimeMillis();
+		DummyMongo mongoEntity = dummyDTO.dtoToMongoEntity();
+		Mono<DummyMongo> savedEntity =dummyMongoRepo.save(mongoEntity);
+		log.info("Stream Rest addToMongo total execution time:"+ (System.currentTimeMillis()-start));
+		return savedEntity;
+	}
 	
 	public Flux<DummyDTO> fetchAll(){
 		long start= System.currentTimeMillis();

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 import org.spring.webflux.entity.DummyEntity;
+import org.spring.webflux.entity.DummyMongo;
 
 public class DummyDTO {
 	private int id;
@@ -70,11 +71,31 @@ public class DummyDTO {
 		dummyEntity.setPrice(price);
 		return dummyEntity;
 	}
+
+	public static DummyDTO mongoEntityToDto(DummyMongo dummyMongo) {
+		DummyDTO dummyDTO = new DummyDTO();
+		dummyDTO.setId(dummyMongo.getId());
+		dummyDTO.setName(dummyMongo.getName());
+		dummyDTO.setHighOn(dummyMongo.getHighOn());
+		dummyDTO.setPrice(dummyMongo.getPrice());
+		dummyDTO.setHighAgo(
+				ChronoUnit.DAYS.between(dummyMongo.getHighOn(), LocalDate.now())+" days");
+		return dummyDTO;
+	}
+	
+	
+	public DummyMongo dtoToMongoEntity() {
+		DummyMongo dummyMongo = new DummyMongo();
+		dummyMongo.setId(id);
+		dummyMongo.setName(name);
+		dummyMongo.setHighOn(highOn);
+		dummyMongo.setPrice(price);
+		return dummyMongo;
+	}
+	
 	@Override
 	public String toString() {
 		return "DummyDTO [id=" + id + ", name=" + name + ", highOn=" + highOn + ", price=" + price + ", highAgo="
 				+ highAgo + "]";
 	}
-	
-	
 }

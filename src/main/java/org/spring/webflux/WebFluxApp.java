@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -25,6 +27,21 @@ import reactor.util.function.Tuple2;
 		logic.executeLogic();
 		SpringApplication.run(WebFluxApp.class, args);
 	}
+	
+	/*
+	 * - Non-blocking, reactive alternative to RestTemplate
+	 * - Sends outgoing HTTP requests to other services (like a REST client)
+	 * - Used to consume APIs or call external services from your application
+	 * - Client-side HTTP client
+	 * - Returns: Mono<T> or Flux<T> (response from external services)
+	*/
+	@Bean
+	public WebClient initilizeWebClient() {
+		return WebClient.builder()
+	            .baseUrl("http://localhost:9090/api")  // Base URL for external API
+	            .build();
+	}
+
 	
 //	@Override
 //	public void run(String... args) {
