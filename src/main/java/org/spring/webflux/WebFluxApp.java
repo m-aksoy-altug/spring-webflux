@@ -111,7 +111,9 @@ class CycleOfReactiveStreamNonoFlux{
 	}
 	
 	private void fluxSuccess() {
-		Flux<String> str= Flux.just("Flux Success1","Flux Success2","Flux Success3","Flux Success4").log();
+		Flux<String> str= Flux.just("abc.com","D_0","D_1","Flux Success4").log();
+		List<String> list =str.collectSortedList().block();
+		list.forEach(x-> System.out.println("tr.collectSortedList().block()"+x));
 		str.subscribe(value-> System.out.println(value));
 	}
 	

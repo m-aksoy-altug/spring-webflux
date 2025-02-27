@@ -10,8 +10,9 @@ CMD ["mongod"]
 #  -v /home/altug/Desktop/Mongocontainer:/data/db \
 #  mongo-reactive:7.0.17
   
- docker exec -it mongo-container mongosh -u admin -p \
- adminpassword --authenticationDatabase admin
+ # Mongosh
+# docker exec -it mongo-container mongosh -u admin -p \
+# adminpassword --authenticationDatabase admin
 
 # In Mongo shelll
 #show dbs
