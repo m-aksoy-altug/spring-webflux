@@ -1,29 +1,37 @@
 package org.spring.webflux.router;
 
-
-import org.spring.webflux.exception.GlobalErrorHandlerFunctionalWay;
 import org.spring.webflux.handler.RequestHandlerAsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
-/*Non-Blocking (Asynchronous): The request does not wait for the response. 
- * Instead, it is reactively processed when data is available, 
- * allowing the thread to handle other tasks in the meantime.
- * - Requests are handled asynchronously, without blocking the worker thread.
- * - Uses Netty event-loop model, which allows handling thousands of concurrent 
- * requests efficiently.
-*/
+
 /*
- * Uses functional Endpoints ( Involves Routers and Handlers) 
- * More functional programming style, which can be useful for advanced WebFlux use cases.
+ * HTTP (REST API)
+ * Communication Type: Request-Response (stateless)
+ * Data Exchange: JSON,XML,text,binary in REST APIs
+ * Protocol: HTTP GET,POST,PATCH
+ * Scalability: Stateless and scales easily with reactive programming 
+ * Use case: Fetching. processing API data
+ *  
 */
 @Configuration
 public class RouterConfig {
+	
+	/*Non-Blocking (Asynchronous): The request does not wait for the response. 
+	 * Instead, it is reactively processed when data is available, 
+	 * allowing the thread to handle other tasks in the meantime.
+	 * - Requests are handled asynchronously, without blocking the worker thread.
+	 * - Uses Netty event-loop model, which allows handling thousands of concurrent 
+	 * requests efficiently.
+
+	 * Uses functional Endpoints ( Involves Routers and Handlers) 
+	 * More functional programming style, which can be useful for advanced WebFlux use cases.
+	*/
+	
 	/* - @Configuration : As a source of bean definition in the application context (Spring core)
 	 * - @Bean : Object of the Router function needs to be available to server the requests.
 	 * - RouterFunction : Evaluates a request predicate and routes it to a handler if not match return empty result
